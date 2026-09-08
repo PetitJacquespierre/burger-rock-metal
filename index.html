@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Poppins:ital,wght@0,400;0,600;0,800;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css?v=6">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="icon" type="image/jpg" href="img/logo.jpg">
+    <link rel="icon" type="image/jpg" href="img/logo.png">
     
     <!-- Meta Tags OpenGraph para WhatsApp y Redes Sociales -->
     <meta property="og:title" content="¡Pide ahora en Burger Rock Metal!">
@@ -19,24 +19,32 @@
     <!-- PWA -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#800020">
-    <link rel="apple-touch-icon" href="img/logo.jpg">
+    <link rel="apple-touch-icon" href="img/logo.png">
 </head>
 <body>
     
-    <!-- PANTALLA DE CARGA ROQUERA (Exclusiva para Burger Rock Metal) -->
+    <!-- PANTALLA DE CARGA HEAVY METAL (Exclusiva para Burger Rock Metal) -->
     <div id="splash-screen" onclick="dismissSplash()">
+        <!-- Fondo de cuero oscuro simulado con textura css -->
+        <div class="metal-bg"></div>
         <div class="splash-content">
-            <div class="rock-pulse-ring"></div>
-            <img src="img/logo.jpg" alt="Burger Rock Metal" class="splash-logo rock-glitch">
-            <div class="splash-loading-text rock-text" id="dynamic-splash-text"></div>
+            <!-- Collar de púas giratorio -->
+            <div class="spiked-collar"></div>
+            <!-- Cadenas cayendo -->
+            <div class="chains"></div>
+            
+            <img src="img/logo.png" alt="Burger Rock Metal" class="splash-logo heavy-metal-logo">
+            <div class="splash-loading-text heavy-metal-text" id="dynamic-splash-text"></div>
             <script>
                 // CAMBIA ESTE NOMBRE PARA CADA NUEVO CLIENTE
                 const BUSINESS_NAME = "Burger Rock Metal"; 
                 
                 const splashPhrases = [
-                    `AFINANDO GUITARRAS...`,
-                    `ENCENDIENDO LAS PARRILLAS...`,
-                    `PREPARANDO EL ESCENARIO...`,
+                    `FORJANDO HAMBURGUESAS...`,
+                    `DISTORSIONANDO SABORES...`,
+                    `DESATANDO EL CAOS...`,
+                    `ALIMENTANDO A LA BESTIA...`,
+                    `SUBIENDO EL VOLUMEN AL MÁXIMO...`,
                     `LET'S ROCK! 🤘`
                 ];
                 document.getElementById('dynamic-splash-text').innerHTML = splashPhrases[Math.floor(Math.random() * splashPhrases.length)];
@@ -62,7 +70,7 @@
     <!-- HEADER -->
     <header>
         <div class="logo-container">
-            <img src="img/logo.jpg" alt="Burger Rock Metal" id="header-logo">
+            <img src="img/logo.png" alt="Burger Rock Metal" id="header-logo">
         </div>
         <div class="header-actions" style="display:flex; gap: 10px; align-items:center;">
             <button id="btn-install-pwa" class="pwa-install-btn" style="display: none;">
@@ -92,7 +100,7 @@
                 </button>
             </div>
             <div class="hero-image-container">
-                <img src="img/hero_tequeno.jpg" alt="Hamburguesa deliciosa" class="hero-img">
+                <video src="img/portada_hero.mp4" class="hero-img" style="object-fit: cover;" autoplay loop muted playsinline></video>
             </div>
         </div>
     </section>

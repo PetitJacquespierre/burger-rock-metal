@@ -35,13 +35,12 @@ body {
 .text-yellow { color: #fbbf24; }
 
 /* ========================================= */
-/* SPLASH SCREEN PREMIUM                     */
+/* SPLASH SCREEN METALERO                    */
 /* ========================================= */
 #splash-screen {
     position: fixed;
     inset: 0;
     background-color: #050505;
-
     background-size: cover;
     background-position: center;
     z-index: 9999;
@@ -56,8 +55,9 @@ body {
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at center, rgba(0,0,0,0.5) 0%, rgba(9,9,11,0.95) 100%);
+    background: radial-gradient(circle at center, rgba(128, 0, 32, 0.4) 0%, rgba(9,9,11,1) 100%);
     z-index: 1;
+    animation: pulseFire 2s infinite alternate;
 }
 
 #splash-screen::after {
@@ -68,16 +68,24 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     background-size: clamp(300px, 80%, 800px);
-    opacity: 0.03; /* Muy sutil para efecto de lujo */
-    filter: grayscale(1) brightness(10); /* Silueta 100% blanca */
+    opacity: 0.05; 
+    filter: brightness(0) invert(1) drop-shadow(0 0 10px red); 
     z-index: 1;
-    animation: watermarkZoom 12s ease-out infinite alternate;
+    animation: heartbeatRock 1.5s ease-in-out infinite;
     pointer-events: none;
 }
 
-@keyframes watermarkZoom {
-    0% { transform: scale(1) rotate(-1deg); }
-    100% { transform: scale(1.15) rotate(1deg); }
+@keyframes pulseFire {
+    0% { background: radial-gradient(circle at center, rgba(128, 0, 32, 0.2) 0%, rgba(5,5,5,1) 100%); }
+    100% { background: radial-gradient(circle at center, rgba(200, 0, 0, 0.5) 0%, rgba(5,5,5,1) 100%); }
+}
+
+@keyframes heartbeatRock {
+    0% { transform: scale(1); filter: brightness(0) invert(1) drop-shadow(0 0 5px red); }
+    15% { transform: scale(1.15); filter: brightness(0) invert(1) drop-shadow(0 0 20px #ff0000); }
+    30% { transform: scale(1); filter: brightness(0) invert(1) drop-shadow(0 0 5px red); }
+    45% { transform: scale(1.15); filter: brightness(0) invert(1) drop-shadow(0 0 20px #ff0000); }
+    100% { transform: scale(1); filter: brightness(0) invert(1) drop-shadow(0 0 5px red); }
 }
 
 #splash-screen.hide-splash {
@@ -89,48 +97,36 @@ body {
 .splash-content {
     position: relative;
     z-index: 2;
-    width: 170px;
-    height: 170px;
+    width: 200px;
+    height: 200px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    transform: translateY(-30px); /* Sube visualmente el centro */
+    transform: translateY(-30px);
+    animation: floatingRock 3s ease-in-out infinite alternate;
 }
 
-/* Anillo de neÃ³n giratorio (Exterior) */
-.splash-ring {
+@keyframes floatingRock {
+    0% { transform: translateY(-30px) rotate(-2deg); }
+    100% { transform: translateY(-15px) rotate(2deg); }
+}
+
+/* Fuego animado de fondo */
+.fire-glow {
     position: absolute;
-    width: 100%;
-    height: 100%;
+    width: 250px;
+    height: 250px;
     border-radius: 50%;
-    border: 2px solid transparent;
-    border-top-color: var(--primary);
-    animation: spinRing 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    background: radial-gradient(circle at center, rgba(255, 69, 0, 0.4) 0%, rgba(255, 0, 0, 0) 70%);
+    animation: flicker 0.5s infinite alternate;
+    z-index: 1;
 }
 
-/* Anillo de neÃ³n giratorio (Interior) */
-.splash-ring-inner {
-    position: absolute;
-    width: 82%;
-    height: 82%;
-    border-radius: 50%;
-    border: 1px dashed transparent;
-    border-bottom-color: var(--primary);
-    border-left-color: var(--primary);
-    animation: spinRingReverse 2.5s linear infinite;
-    opacity: 0.6;
-}
-
-@keyframes spinRing {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-@keyframes spinRingReverse {
-    0% { transform: rotate(360deg); }
-    100% { transform: rotate(0deg); }
+@keyframes flicker {
+    0% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1.05); opacity: 0.9; }
 }
 
 /* Logo con pulso suave */
@@ -496,7 +492,7 @@ main {
 
 
 /* ========================================= */
-/* FILTROS DINÃMICOS (STICKY MENU)           */
+/* FILTROS DINÃ MICOS (STICKY MENU)           */
 /* ========================================= */
 .filters-container {
     display: flex;
@@ -505,9 +501,10 @@ main {
     margin-bottom: 30px;
     flex-wrap: wrap;
     position: sticky;
-    top: 135px; /* Debajo del header mÃ¡s grande */
+    top: 0; /* Que pegue justo arriba */
     z-index: 90;
-    background: #000;
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(5px);
     padding: 10px;
     border-bottom: 1px solid rgba(255,193,7,0.2);
 }

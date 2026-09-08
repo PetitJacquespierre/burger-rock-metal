@@ -25,13 +25,10 @@
     
     <!-- PANTALLA DE CARGA HEAVY METAL (Exclusiva para Burger Rock Metal) -->
     <div id="splash-screen" onclick="dismissSplash()">
-        <!-- Fondo de cuero oscuro simulado con textura css -->
         <div class="metal-bg"></div>
         <div class="splash-content">
-            <!-- Collar de púas giratorio -->
-            <div class="spiked-collar"></div>
-            <!-- Cadenas cayendo -->
-            <div class="chains"></div>
+            <!-- Efecto de fuego (generado por css) -->
+            <div class="fire-glow"></div>
             
             <img src="img/logo.png" alt="Burger Rock Metal" class="splash-logo heavy-metal-logo">
             <div class="splash-loading-text heavy-metal-text" id="dynamic-splash-text"></div>
@@ -68,9 +65,10 @@
     </div>
 
     <!-- HEADER -->
-    <header>
-        <div class="logo-container">
-            <img src="img/logo.png" alt="Burger Rock Metal" id="header-logo">
+    <header style="display: flex; justify-content: space-between; align-items: center; padding: 10px 20px;">
+        <div class="header-brand" style="display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.1rem; color: white;">
+            <img src="img/logo.png" alt="Burger Rock Metal" id="header-logo" style="height: 35px; width: 35px; object-fit: contain; display: none;">
+            <span>Burger Rock Metal</span>
         </div>
         <div class="header-actions" style="display:flex; gap: 10px; align-items:center;">
             <button id="btn-install-pwa" class="pwa-install-btn" style="display: none;">
@@ -148,16 +146,16 @@
     <!-- FOOTER -->
     <footer>
         <div class="footer-content">
-            <a href="#" target="_blank" rel="noopener" class="instagram-card">
+            <a href="#" target="_blank" rel="noopener" class="instagram-card" style="display: none;">
                 <i class="fa-brands fa-instagram text-gradient" style="font-size: 2rem;"></i>
                 <span>Síguenos en Instagram<br><strong class="ig-handle">@tu_instagram</strong></span>
             </a>
             
-            <div class="agency-signature">
-                <p>DESARROLLADO CON PASIÓN POR</p>
-                <!-- ENLACE A GROW STUDIO -->
-                <a href="https://growstudioweb.vercel.app" target="_blank" rel="noopener" class="grow-brand" style="text-decoration: none;">
-                    GROW STUDIO
+            <div class="agency-signature" style="margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                <p style="font-size: 0.75rem; letter-spacing: 2px; color: #a1a1aa; margin: 0;">⚡ TECNOLOGÍA Y DISEÑO POR</p>
+                <a href="https://growstudioweb.vercel.app" target="_blank" rel="noopener" class="grow-brand" style="text-decoration: none; display: flex; align-items: center; gap: 8px;">
+                    <img src="https://raw.githubusercontent.com/jackbikepf/repo/main/growisotipo.png" onerror="this.src='img/growisotipo.png'; this.onerror=null;" alt="Grow Studio" style="width: 25px; height: 25px; filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));">
+                    <span style="font-size: 1.1rem; font-weight: 800; background: linear-gradient(90deg, #22d3ee, #f97316); -webkit-background-clip: text; color: transparent; letter-spacing: 1px;">GROW STUDIO</span>
                 </a>
             </div>
         </div>

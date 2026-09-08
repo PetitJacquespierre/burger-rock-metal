@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Burger Rock Metal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Poppins:ital,wght@0,400;0,600;0,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=6">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/jpg" href="img/logo.jpg">
+    
+    <!-- Meta Tags OpenGraph para WhatsApp y Redes Sociales -->
+    <meta property="og:title" content="¡Pide ahora en Burger Rock Metal!">
+    <meta property="og:description" content="Las mejores hamburguesas y perros calientes de la ciudad. Haz tu pedido rÃ¡pido y fÃ¡cil.">
+    <meta property="og:image" content="img/hero_tequeno.jpg"> <!-- Sube tu web para que funcione en WhatsApp, y coloca aquÃ­ la URL absoluta (ej: https://midominio.com/img/hero_tequeno.jpg) -->
+    <meta property="og:url" content="https://midominio.com">
+    <meta property="og:type" content="website">
+    
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#800020">
+    <link rel="apple-touch-icon" href="img/logo.jpg">
+</head>
+<body>
+    
+    <!-- PANTALLA DE CARGA ROQUERA (Exclusiva para Burger Rock Metal) -->
+    <div id="splash-screen" onclick="dismissSplash()">
+        <div class="splash-content">
+            <div class="rock-pulse-ring"></div>
+            <img src="img/logo.jpg" alt="Burger Rock Metal" class="splash-logo rock-glitch">
+            <div class="splash-loading-text rock-text" id="dynamic-splash-text"></div>
+            <script>
+                // CAMBIA ESTE NOMBRE PARA CADA NUEVO CLIENTE
+                const BUSINESS_NAME = "Burger Rock Metal"; 
+                
+                const splashPhrases = [
+                    `AFINANDO GUITARRAS...`,
+                    `ENCENDIENDO LAS PARRILLAS...`,
+                    `PREPARANDO EL ESCENARIO...`,
+                    `LET'S ROCK! 🤘`
+                ];
+                document.getElementById('dynamic-splash-text').innerHTML = splashPhrases[Math.floor(Math.random() * splashPhrases.length)];
+            </script>
+        </div>
+    </div>
+
+    <!-- PANTALLA DE SUSPENSIÃ“N REMOTA (SaaS Kill Switch) -->
+    <div id="system-suspended-screen" style="display: none;">
+        <!-- Efecto de Orbes de Fondo -->
+        <div class="orbs-background">
+            <div class="orb orb-1"></div>
+            <div class="orb orb-2"></div>
+            <div class="orb orb-3"></div>
+        </div>
+        <div class="suspended-content">
+            <img src="img/growisotipo.png" alt="Grow Studio" style="width: 120px; margin-bottom: 25px; animation: pulse 2s infinite; filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.8));">
+            <h2 style="font-size: 2rem; margin-bottom: 15px;">Sitio en Mantenimiento</h2>
+            <p style="font-size: 1.1rem; color: #ddd;">Estamos realizando actualizaciones importantes.<br>Por favor, regresa mÃ¡s tarde.</p>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <header>
+        <div class="logo-container">
+            <img src="img/logo.jpg" alt="Burger Rock Metal" id="header-logo">
+        </div>
+        <div class="header-actions" style="display:flex; gap: 10px; align-items:center;">
+            <button id="btn-install-pwa" class="pwa-install-btn" style="display: none;">
+                <i class="fa-solid fa-download"></i> INSTALAR APP
+            </button>
+            <div class="bcv-badge">
+                <i class="fa-solid fa-money-bill-trend-up text-yellow"></i> BCV: <span id="bcv-value">764.35</span> Bs
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO IMPACTANTE -->
+    <section class="hero">
+        <div class="hero-layout">
+            <div class="hero-content">
+                <div class="hero-pill"><i class="fa-solid fa-star text-yellow"></i> LA MEJOR HERRAMIENTA</div>
+                <h1 class="hero-title">MENÚ.<br><span class="text-gradient">DIGITAL.</span><br>INTERACTIVO.</h1>
+                <p class="hero-subtitle">Prueba cómo tus clientes verán tus productos y enviarán sus pedidos directamente a tu WhatsApp.</p>
+                
+                <div class="hero-features">
+                    <span class="feat-badge"><i class="fa-solid fa-bolt text-yellow"></i> Delivery Rápido</span>
+                    <span class="feat-badge"><i class="fa-solid fa-burger text-yellow"></i> 100% Carne de Primera</span>
+                </div>
+                
+                <button class="hero-btn" onclick="document.getElementById('menu-grid').scrollIntoView({behavior: 'smooth'})">
+                    ¡VER MENÚ AHORA! <i class="fa-solid fa-arrow-down"></i>
+                </button>
+            </div>
+            <div class="hero-image-container">
+                <img src="img/hero_tequeno.jpg" alt="Hamburguesa deliciosa" class="hero-img">
+            </div>
+        </div>
+    </section>
+
+    <!-- CARRUSEL DE PROMOCIONES -->
+    <div class="promo-slider-container">
+        <div class="promo-slider" id="promoSlider">
+            <div class="promo-slide">
+                <img src="img/promo1.jpg" alt="PromociÃ³n 1">
+            </div>
+            <div class="promo-slide">
+                <img src="img/promo2.jpg" alt="PromociÃ³n 2">
+            </div>
+        </div>
+        <!-- Indicadores (Opcional visual) -->
+        <div class="slider-indicators">
+            <div class="indicator active"></div>
+            <div class="indicator"></div>
+        </div>
+    </div>
+
+    <!-- MENÃš / CATÃLOGO -->
+    <main>
+        <div class="menu-header">
+            <h2 class="section-title">NUESTRO MENÚ</h2>
+        </div>
+        
+        <!-- BANNER DE CERRADO -->
+        <div id="store-closed-banner" class="store-closed-banner" style="display: none;">
+            <i class="fa-solid fa-store-slash"></i>
+            <span id="store-closed-text">Actualmente estamos CERRADOS.</span>
+        </div>
+
+
+        <!-- CONTENEDOR DE FILTROS DINÃMICOS -->
+        <div id="menu-filters" class="filters-container">
+            <!-- Los botones se generarÃ¡n desde app.js -->
+        </div>
+
+        <div class="menu-grid" id="menu-grid">
+            <!-- Carga dinÃ¡mica desde app.js -->
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <a href="#" target="_blank" rel="noopener" class="instagram-card">
+                <i class="fa-brands fa-instagram text-gradient" style="font-size: 2rem;"></i>
+                <span>Síguenos en Instagram<br><strong class="ig-handle">@tu_instagram</strong></span>
+            </a>
+            
+            <div class="agency-signature">
+                <p>DESARROLLADO CON PASIÓN POR</p>
+                <!-- ENLACE A GROW STUDIO -->
+                <a href="https://growstudioweb.vercel.app" target="_blank" rel="noopener" class="grow-brand" style="text-decoration: none;">
+                    GROW STUDIO
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- BOTÓN FLOTANTE DEL CARRITO -->
+    <button class="cart-fab" id="cart-fab" onclick="toggleCart()">
+        <div class="fab-left">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span class="fab-label">MI PEDIDO</span>
+            <span class="cart-count" id="cart-count">0</span>
+        </div>
+        <div class="fab-right">
+            <div class="cart-total-usd" id="fab-total-usd">$0.00</div>
+            <div class="cart-total-bs" id="fab-total-bs">0.00 Bs</div>
+        </div>
+    </button>
+
+    <!-- MODAL DEL CARRITO -->
+    <div class="modal-overlay" id="cart-modal">
+        <div class="cart-container">
+            <!-- CABECERA FIJA -->
+            <div class="cart-header">
+                <h3><i class="fa-solid fa-bag-shopping text-yellow"></i> TU PEDIDO</h3>
+                <button class="close-btn" onclick="toggleCart()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <!-- CUERPO SCROLLEABLE -->
+            <div class="cart-body">
+                <!-- 1. FORMULARIO DE ENVÃO -->
+                <!-- 2. RESUMEN DE PRODUCTOS -->
+                <div class="cart-items-section">
+                    <h4 class="section-heading">Productos Seleccionados</h4>
+                    <div id="cart-items">
+                        <p class="empty-cart">Tu carrito está vacío.</p>
+                    </div>
+                </div>
+
+                <!-- 3. UPSIDE / VENTA CRUZADA -->
+                <div class="cart-upsell-section" style="display: block;">
+                    <h5 class="upsell-title">¿Deseas agregar un extra?</h5>
+                    <div class="upsell-container">
+                        <!-- Botones generados dinámicamente por JS (renderUpsells) -->
+                    </div>
+                </div>
+
+                <!-- 1. FORMULARIO DE ENVÍO -->
+                <div class="cart-form-section">
+                    <h4 class="section-heading">Datos de Entrega</h4>
+                    
+                    <div class="form-group">
+                        <label class="form-label"><i class="fa-solid fa-truck-fast text-yellow"></i> Zona de Delivery:</label>
+                        <select id="delivery-zone" class="form-select" onchange="updateTotal()">
+                            <option value="1" data-type="delivery">Zona 1 (+$1.00 USD)</option>
+                            <option value="2" data-type="delivery">Zona 2 (+$2.00 USD)</option>
+                            <option value="3" data-type="delivery">Zona 3 (+$3.00 USD)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label"><i class="fa-solid fa-user text-yellow"></i> Tu Nombre Completo:</label>
+                        <input type="text" id="customer-name" class="form-input" placeholder="Ej. María Pérez">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label"><i class="fa-solid fa-location-dot text-yellow"></i> Tu Dirección Exacta:</label>
+                        <input type="text" id="customer-address" class="form-input" placeholder="Manzana, Casa, Punto de referencia">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label"><i class="fa-solid fa-comment-dots text-yellow"></i> Nota para el pedido (Opcional):</label>
+                        <textarea id="customer-notes" class="form-input" placeholder="Ej. Sin salsas, alergia al maní..." rows="2" style="resize: none;"></textarea>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 15px; border-top: 1px solid #333; padding-top: 15px;">
+                        <label class="form-label" style="color: #4ade80;"><i class="fa-solid fa-gift"></i> Código de Referido (Opcional):</label>
+                        <input type="text" id="referral-code" class="form-input" placeholder="Si tienes un código, colócalo aquí" style="border-color: #4ade80;">
+                    </div>
+                </div>
+
+                <!-- 2. FORMA DE PAGO -->
+                <div class="cart-form-section">
+                    <h4 class="section-heading">Forma de Pago</h4>
+                    <div class="form-group">
+                        <select id="payment-method" class="form-select" onchange="togglePaymentDetails()">
+                            <option value="Pago Móvil">Pago Móvil</option>
+                            <option value="Efectivo">Efectivo</option>
+                            <option value="Divisas">Divisas</option>
+                            <option value="USDT">USDT</option>
+                            <option value="Zelle">Zelle</option>
+                        </select>
+                    </div>
+
+                    <!-- DATOS DE PAGO MÓVIL -->
+                    <div id="pago-movil-details" class="payment-details-box">
+                        <p class="payment-instruction">Copia los datos para realizar tu pago:</p>
+                        
+                        <div class="copy-row">
+                            <div class="copy-label">Teléfono:</div>
+                            <div class="copy-box">
+                                <span id="pm-phone">00000000</span>
+                                <button type="button" class="copy-btn" onclick="copyToClipboard('pm-phone', this)"><i class="fa-regular fa-copy"></i></button>
+                            </div>
+                        </div>
+
+                        <div class="copy-row">
+                            <div class="copy-label">Cédula:</div>
+                            <div class="copy-box">
+                                <span id="pm-id">15016800</span>
+                                <button type="button" class="copy-btn" onclick="copyToClipboard('pm-id', this)"><i class="fa-regular fa-copy"></i></button>
+                            </div>
+                        </div>
+
+                        <div class="copy-row">
+                            <div class="copy-label">Banco:</div>
+                            <div class="copy-box">
+                                <span id="pm-bank">0102 - Venezuela</span>
+                                <button type="button" class="copy-btn" onclick="copyToClipboard('pm-bank', this)"><i class="fa-regular fa-copy"></i></button>
+                            </div>
+                        </div>
+
+                        <div class="copy-row highlight-copy">
+                            <div class="copy-label">Monto Exacto:</div>
+                            <div class="copy-box">
+                                <span id="pm-amount">0.00 Bs</span>
+                                <button type="button" class="copy-btn" onclick="copyToClipboard('pm-amount', this)"><i class="fa-regular fa-copy"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            
+            </div> <!-- End cart-body -->
+
+            <!-- FOOTER FIJO CON TOTALES -->
+            <div class="cart-footer">
+                <div class="totals">
+                    <div class="total-row">
+                        <span>Subtotal Productos:</span>
+                        <span id="summary-subtotal">$0.00</span>
+                    </div>
+                    <div class="total-row">
+                        <span>Envío / Delivery:</span>
+                        <span id="summary-delivery">$0.00</span>
+                    </div>
+                    <div class="total-row grand-total">
+                        <span>TOTAL A PAGAR:</span>
+                        <div class="total-box">
+                            <span id="summary-total-usd">$0.00</span>
+                            <span class="total-bs" id="summary-total-bs">0.00 Bs</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="whatsapp-btn" onclick="sendOrder()">
+                    <i class="fa-brands fa-whatsapp fa-xl"></i> ENVIAR PEDIDO POR WHATSAPP
+                </button>
+            </div>
+        </div>
+    <!-- SCRIPTS -->
+    <script src="js/config.js" charset="utf-8"></script>
+    <!-- Carga del Cerebro Central (Desde Vercel) -->
+    <script src="https://growstudiocore.vercel.app/core.js" charset="utf-8"></script>
+    <!-- Código específico de este cliente (ahora vacío) -->
+    <script src="js/app.js" charset="utf-8"></script>
+    <script>
+        // Registro de Service Worker para PWA (InstalaciÃ³n Offline)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('PWA ServiceWorker registrado'))
+                    .catch(err => console.error('PWA ServiceWorker fallÃ³:', err));
+            });
+        }
+    </script>
+</body>
+</html>
+

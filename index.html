@@ -23,28 +23,33 @@
 </head>
 <body>
     
-    <!-- PANTALLA DE CARGA HEAVY METAL (Exclusiva para Burger Rock Metal) -->
+    <!-- SPLASH SCREEN - REALISTIC LIGHTNING (Ride the Lightning Style) -->
     <div id="splash-screen" onclick="dismissSplash()">
-        <div class="metal-bg"></div>
+
+        <!-- Fondo de rayos hiperrealista (imagen generada) -->
+        <div class="lightning-real-bg"></div>
+
+        <!-- Flash inicial: simula el golpe del rayo -->
+        <div class="splash-flash"></div>
+
+        <!-- Logo centrado con zoom-out épico y destello de fondo -->
         <div class="splash-content">
-            <!-- Efecto de fuego (generado por css) -->
-            <div class="fire-glow"></div>
-            
-            <img src="img/logo.png" alt="Burger Rock Metal" class="splash-logo heavy-metal-logo">
-            <div class="splash-loading-text heavy-metal-text" id="dynamic-splash-text"></div>
+            <div class="splash-logo-wrapper">
+                <div class="logo-glow"></div>
+                <img src="img/logo.png" alt="Burger Rock Metal" class="splash-logo">
+            </div>
+            <div class="splash-loading-text" id="dynamic-splash-text"></div>
             <script>
-                // CAMBIA ESTE NOMBRE PARA CADA NUEVO CLIENTE
-                const BUSINESS_NAME = "Burger Rock Metal"; 
-                
                 const splashPhrases = [
-                    `FORJANDO HAMBURGUESAS...`,
-                    `DISTORSIONANDO SABORES...`,
-                    `DESATANDO EL CAOS...`,
-                    `ALIMENTANDO A LA BESTIA...`,
-                    `SUBIENDO EL VOLUMEN AL MÁXIMO...`,
-                    `LET'S ROCK! 🤘`
+                    'FORJANDO HAMBURGUESAS...',
+                    'DISTORSIONANDO SABORES...',
+                    'DESATANDO EL CAOS...',
+                    'ALIMENTANDO A LA BESTIA...',
+                    'SUBIENDO EL VOLUMEN AL MÁXIMO...',
+                    "LET'S ROCK! 🤘"
                 ];
-                document.getElementById('dynamic-splash-text').innerHTML = splashPhrases[Math.floor(Math.random() * splashPhrases.length)];
+                document.getElementById('dynamic-splash-text').textContent =
+                    splashPhrases[Math.floor(Math.random() * splashPhrases.length)];
             </script>
         </div>
     </div>

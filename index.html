@@ -209,7 +209,8 @@
                     <div class="form-group">
                         <label class="form-label"><i class="fa-solid fa-truck-fast text-yellow"></i> Zona de Delivery:</label>
                         <select id="delivery-zone" class="form-select" onchange="updateTotal()">
-                            <option value="1" data-type="delivery">Zona 1 (+$1.00 USD)</option>
+                            <option value="0" data-type="delivery">SIN DELIVERY</option>
+                            <option value="1" data-type="delivery">Zona 1 Centro (+$1.00 USD)</option>
                             <option value="2" data-type="delivery">Zona 2 (+$2.00 USD)</option>
                             <option value="3" data-type="delivery">Zona 3 (+$3.00 USD)</option>
                         </select>
@@ -256,7 +257,7 @@
                         <div class="copy-row">
                             <div class="copy-label">Teléfono:</div>
                             <div class="copy-box">
-                                <span id="pm-phone">00000000</span>
+                                <span id="pm-phone">04146992629</span>
                                 <button type="button" class="copy-btn" onclick="copyToClipboard('pm-phone', this)"><i class="fa-regular fa-copy"></i></button>
                             </div>
                         </div>
@@ -264,7 +265,7 @@
                         <div class="copy-row">
                             <div class="copy-label">Cédula:</div>
                             <div class="copy-box">
-                                <span id="pm-id">15016800</span>
+                                <span id="pm-id">14075559</span>
                                 <button type="button" class="copy-btn" onclick="copyToClipboard('pm-id', this)"><i class="fa-regular fa-copy"></i></button>
                             </div>
                         </div>
@@ -272,7 +273,7 @@
                         <div class="copy-row">
                             <div class="copy-label">Banco:</div>
                             <div class="copy-box">
-                                <span id="pm-bank">0102 - Venezuela</span>
+                                <span id="pm-bank">0108 - Provincial</span>
                                 <button type="button" class="copy-btn" onclick="copyToClipboard('pm-bank', this)"><i class="fa-regular fa-copy"></i></button>
                             </div>
                         </div>
@@ -284,6 +285,11 @@
                                 <button type="button" class="copy-btn" onclick="copyToClipboard('pm-amount', this)"><i class="fa-regular fa-copy"></i></button>
                             </div>
                         </div>
+
+                        <!-- BOTÓN COPIAR TODO -->
+                        <button type="button" class="copy-all-btn" onclick="copyAllPagoMovil(this)" style="width: 100%; padding: 10px; margin-top: 15px; background: transparent; border: 1px solid var(--text-muted); color: var(--text-main); border-radius: 8px; cursor: pointer; font-weight: 600; display: flex; justify-content: center; align-items: center; gap: 8px; transition: 0.3s;">
+                            <i class="fa-regular fa-copy"></i> COPIAR TODOS LOS DATOS
+                        </button>
                     </div>
                 </div>
 

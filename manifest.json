@@ -1,17 +1,32 @@
 {
-  "name": "[NOMBRE DE TU NEGOCIO]",
-  "short_name": "[NOMBRE CORTO]",
-  "description": "[DESCRIPCIÓN DE TU NEGOCIO]",
+  "name": "Burger Rock Metal",
+  "short_name": "BurgerRock",
+  "description": "Las mejores hamburguesas y perros calientes de la ciudad. ¡Pide ahora!",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#1a1a1a",
-  "theme_color": "#ff5500",
+  "orientation": "portrait",
+  "background_color": "#09090b",
+  "theme_color": "#C61010",
   "icons": [
     {
-      "src": "img/isotipo.png",
-      "sizes": "192x192 512x512",
+      "src": "img/isotipo.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "img/isotipo.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "img/logo.png",
+      "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "maskable"
     }
-  ]
+  ],
+  "categories": ["food", "shopping"],
+  "lang": "es"
 }

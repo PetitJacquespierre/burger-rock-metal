@@ -80,9 +80,21 @@
         </div>
     </header>
 
-    <!-- HERO FULL VIDEO -->
-    <section class="hero-simple" style="width: 100%; background: #000; border-bottom: 2px solid var(--primary); display: flex; justify-content: center;">
-        <video src="img/portada_hero.mp4" style="width: 100%; max-width: 600px; height: auto; max-height: 85vh; object-fit: cover; display: block;" autoplay loop muted playsinline></video>
+    <!-- HERO IMPACTANTE (Fallback local) -->
+    <section class="hero">
+        <div class="hero-layout">
+            <div class="hero-content">
+                <div class="hero-pill"><i class="fa-solid fa-fire text-yellow"></i> ¡LISTOS PARA ROCKEAR!</div>
+                <h1 class="hero-title" style="font-size: 3rem;">BURGER.<br><span class="text-gradient">ROCK.</span><br>METAL.</h1>
+                <p class="hero-subtitle">Las mejores hamburguesas de la ciudad. Pide ahora y te lo llevamos volando.</p>
+                <button class="hero-btn" onclick="document.getElementById('menu-grid').scrollIntoView({behavior: 'smooth'})">
+                    ¡VER MENÚ AHORA! <i class="fa-solid fa-arrow-down"></i>
+                </button>
+            </div>
+            <div class="hero-image-container">
+                <video src="img/portada_hero.mp4" class="hero-img" style="object-fit: cover;" autoplay loop muted playsinline id="fallback-hero-video"></video>
+            </div>
+        </div>
     </section>
 
     <!-- CARRUSEL DE PROMOCIONES -->

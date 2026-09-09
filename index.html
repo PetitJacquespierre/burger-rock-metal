@@ -7,19 +7,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Poppins:ital,wght@0,400;0,600;0,800;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css?v=6">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="icon" type="image/jpg" href="img/isotipo.jpg">
+    <link rel="icon" type="image/png" href="img/logo.png">
     
     <!-- Meta Tags OpenGraph para WhatsApp y Redes Sociales -->
     <meta property="og:title" content="¡Pide ahora en Burger Rock Metal!">
     <meta property="og:description" content="Las mejores hamburguesas y perros calientes de la ciudad. Haz tu pedido rápido y fácil.">
-    <meta property="og:image" content="img/logo.png"> <!-- Sube tu web para que funcione en WhatsApp, y coloca aquí la URL absoluta (ej: https://midominio.com/img/logo.png) -->
+    <meta property="og:image" content="img/logo.png">
     <meta property="og:url" content="https://midominio.com">
     <meta property="og:type" content="website">
     
     <!-- PWA -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#800020">
-    <link rel="apple-touch-icon" href="img/isotipo.jpg">
+    <link rel="apple-touch-icon" href="img/logo.png">
 </head>
 <body>
     
@@ -49,7 +49,7 @@
         </div>
     </div>
 
-    <!-- PANTALLA DE SUSPENSIÃ“N REMOTA (SaaS Kill Switch) -->
+    <!-- PANTALLA DE SUSPENSIÓN REMOTA (SaaS Kill Switch) -->
     <div id="system-suspended-screen" style="display: none;">
         <!-- Efecto de Orbes de Fondo -->
         <div class="orbs-background">
@@ -60,7 +60,7 @@
         <div class="suspended-content">
             <img src="img/growisotipo.png" alt="Grow Studio" style="width: 120px; margin-bottom: 25px; animation: pulse 2s infinite; filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.8));">
             <h2 style="font-size: 2rem; margin-bottom: 15px;">Sitio en Mantenimiento</h2>
-            <p style="font-size: 1.1rem; color: #ddd;">Estamos realizando actualizaciones importantes.<br>Por favor, regresa mÃ¡s tarde.</p>
+            <p style="font-size: 1.1rem; color: #ddd;">Estamos realizando actualizaciones importantes.<br>Por favor, regresa más tarde.</p>
         </div>
     </div>
 
@@ -101,10 +101,10 @@
     <div class="promo-slider-container">
         <div class="promo-slider" id="promoSlider">
             <div class="promo-slide">
-                <img src="img/promo1.jpg" alt="PromociÃ³n 1">
+                <img src="img/promo1.jpg" alt="Promoción 1">
             </div>
             <div class="promo-slide">
-                <img src="img/promo2.jpg" alt="PromociÃ³n 2">
+                <img src="img/promo2.jpg" alt="Promoción 2">
             </div>
         </div>
         <!-- Indicadores (Opcional visual) -->
@@ -114,7 +114,7 @@
         </div>
     </div>
 
-    <!-- MENÃš / CATÃLOGO -->
+    <!-- MENÚ / CATÁLOGO -->
     <main>
         <div class="menu-header">
             <h2 class="section-title">NUESTRO MENÚ</h2>
@@ -127,13 +127,13 @@
         </div>
 
 
-        <!-- CONTENEDOR DE FILTROS DINÃMICOS -->
+        <!-- CONTENEDOR DE FILTROS DINÁMICOS -->
         <div id="menu-filters" class="filters-container">
-            <!-- Los botones se generarÃ¡n desde app.js -->
+            <!-- Los botones se generarán desde app.js -->
         </div>
 
         <div class="menu-grid" id="menu-grid">
-            <!-- Carga dinÃ¡mica desde app.js -->
+            <!-- Carga dinámica desde app.js -->
         </div>
     </main>
 
@@ -179,7 +179,7 @@
             
             <!-- CUERPO SCROLLEABLE -->
             <div class="cart-body">
-                <!-- 1. FORMULARIO DE ENVÃO -->
+                <!-- 1. FORMULARIO DE ENVÍO -->
                 <!-- 2. RESUMEN DE PRODUCTOS -->
                 <div class="cart-items-section">
                     <h4 class="section-heading">Productos Seleccionados</h4>
@@ -188,7 +188,7 @@
                     </div>
                 </div>
 
-                <!-- 3. UPSIDE / VENTA CRUZADA -->
+                <!-- 3. UPSELL / VENTA CRUZADA -->
                 <div class="cart-upsell-section" style="display: block;">
                     <h5 class="upsell-title">¿Deseas agregar un extra?</h5>
                     <div class="upsell-container">
@@ -323,15 +323,14 @@
     <!-- Código específico de este cliente (ahora vacío) -->
     <script src="js/app.js" charset="utf-8"></script>
     <script>
-        // Registro de Service Worker para PWA (InstalaciÃ³n Offline)
+        // Registro de Service Worker para PWA (Instalación Offline)
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('sw.js')
                     .then(reg => console.log('PWA ServiceWorker registrado'))
-                    .catch(err => console.error('PWA ServiceWorker fallÃ³:', err));
+                    .catch(err => console.error('PWA ServiceWorker falló:', err));
             });
         }
     </script>
 </body>
 </html>
-

@@ -3,339 +3,389 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Burger Rock Metal</title>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Poppins:ital,wght@0,400;0,600;0,800;1,900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=6">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="icon" type="image/png" href="img/logo.png">
+    <title>Grow Studio Admin SaaS</title>
     
-    <!-- Meta Tags OpenGraph para WhatsApp y Redes Sociales -->
-    <meta property="og:title" content="¡Pide ahora en Burger Rock Metal!">
-    <meta property="og:description" content="Las mejores hamburguesas y perros calientes de la ciudad. Haz tu pedido rápido y fácil.">
-    <meta property="og:image" content="img/logo.png">
-    <meta property="og:url" content="https://midominio.com">
-    <meta property="og:type" content="website">
-    
-    <!-- PWA -->
+    <!-- PWA / Instalación en Móvil -->
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#800020">
-    <link rel="apple-touch-icon" href="img/logo.png">
+    <meta name="theme-color" content="#00d2ff">
+    <link rel="apple-touch-icon" href="img/growisotipo.png">
+    <link rel="icon" type="image/png" href="img/growisotipo.png">
+    
+    <!-- Meta Tags para Compartir (OpenGraph / WhatsApp) -->
+    <meta property="og:title" content="Grow Studio | Panel de Control SaaS">
+    <meta property="og:description" content="Gestión centralizada de Menús Digitales.">
+    <meta property="og:image" content="https://admin-growstudio.vercel.app/img/growisotipo.png">
+    <meta property="og:url" content="https://admin-growstudio.vercel.app/">
+    <meta property="og:type" content="website">
+
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    
-    <!-- SPLASH SCREEN - REALISTIC LIGHTNING (Ride the Lightning Style) -->
-    <div id="splash-screen" onclick="dismissSplash()">
-
-        <!-- Fondo de rayos hiperrealista (imagen generada) -->
-        <div class="lightning-real-bg"></div>
-
-        <!-- Flash inicial: simula el golpe del rayo -->
-        <div class="splash-flash"></div>
-
-        <!-- Logo centrado con zoom-out épico y destello de fondo -->
-        <div class="splash-content">
-            <div class="splash-logo-wrapper">
-                <div class="logo-glow"></div>
-                <img src="img/logo.png" alt="Burger Rock Metal" class="splash-logo">
+    <!-- PANTALLA DE LOGIN -->
+    <div id="login-screen" class="screen">
+        <div class="login-card">
+            <img src="img/growlogo.png" alt="Grow Studio" width="250" style="margin-bottom: 20px;">
+            <h2>Acceso Restringido</h2>
+            <form id="login-form">
+                <div class="input-group">
+                    <label>Correo Electrónico</label>
+                    <input type="email" id="email" required value="petitjacquespierre@gmail.com">
+                </div>
+                <div class="input-group">
+                <label for="password">Contraseña</label>
+                <div style="position: relative; display: flex; align-items: center;">
+                    <input type="password" id="password" placeholder="••••••••" style="width: 100%; padding-right: 40px; box-sizing: border-box;" required>
+                    <button type="button" id="toggle-pass" style="position: absolute; right: 10px; background: none; border: none; color: gray; cursor: pointer; font-size: 16px;">👁️</button>
+                </div>
             </div>
-            <div class="splash-loading-text" id="dynamic-splash-text"></div>
+
+            <div style="display: flex; align-items: center; margin-bottom: 20px; color: gray; font-size: 13px;">
+                <input type="checkbox" id="remember-me" checked style="margin-right: 8px; cursor: pointer;">
+                <label for="remember-me" style="cursor: pointer; margin: 0;">Mantener sesión iniciada</label>
+            </div>
+            
             <script>
-                const splashPhrases = [
-                    'FORJANDO HAMBURGUESAS...',
-                    'DISTORSIONANDO SABORES...',
-                    'DESATANDO EL CAOS...',
-                    'ALIMENTANDO A LA BESTIA...',
-                    'SUBIENDO EL VOLUMEN AL MÁXIMO...',
-                    "LET'S ROCK! 🤘"
-                ];
-                document.getElementById('dynamic-splash-text').textContent =
-                    splashPhrases[Math.floor(Math.random() * splashPhrases.length)];
+                document.getElementById('toggle-pass').addEventListener('click', function() {
+                    const passInput = document.getElementById('password');
+                    if (passInput.type === 'password') {
+                        passInput.type = 'text';
+                        this.textContent = '🙈';
+                    } else {
+                        passInput.type = 'password';
+                        this.textContent = '👁️';
+                    }
+                });
             </script>
+                <button type="submit" class="btn-primary" style="width: 100%;">Iniciar Sesión</button>
+                <div style="text-align: center; margin-top: 15px;">
+                    <button type="button" id="btn-forgot-password" style="background: none; border: none; color: var(--brand-cyan); cursor: pointer; font-size: 14px; text-decoration: underline;">¿Olvidaste tu contraseña?</button>
+                </div>
+            </form>
+            <p id="login-error" class="error-msg" style="display: none;"></p>
         </div>
     </div>
 
-    <!-- PANTALLA DE SUSPENSIÓN REMOTA (SaaS Kill Switch) -->
-    <div id="system-suspended-screen" style="display: none;">
-        <!-- Efecto de Orbes de Fondo -->
-        <div class="orbs-background">
-            <div class="orb orb-1"></div>
-            <div class="orb orb-2"></div>
-            <div class="orb orb-3"></div>
-        </div>
-        <div class="suspended-content">
-            <img src="img/growisotipo.png" alt="Grow Studio" style="width: 120px; margin-bottom: 25px; animation: pulse 2s infinite; filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.8));">
-            <h2 style="font-size: 2rem; margin-bottom: 15px;">Sitio en Mantenimiento</h2>
-            <p style="font-size: 1.1rem; color: #ddd;">Estamos realizando actualizaciones importantes.<br>Por favor, regresa más tarde.</p>
-        </div>
-    </div>
-
-    <!-- HEADER -->
-    <header style="display: flex; justify-content: space-between; align-items: center; padding: 10px 20px;">
-        <div class="header-brand" style="display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.1rem; color: white;">
-            <img src="img/logo.png" alt="Burger Rock Metal" id="header-logo" style="height: 35px; width: 35px; object-fit: contain; display: none;">
-            <span>Burger Rock Metal</span>
-        </div>
-        <div class="header-actions" style="display:flex; gap: 10px; align-items:center;">
-            <button id="btn-install-pwa" class="pwa-install-btn" style="display: none;">
-                <i class="fa-solid fa-download"></i> INSTALAR APP
-            </button>
-            <div class="bcv-badge">
-                <i class="fa-solid fa-money-bill-trend-up text-yellow"></i> BCV: <span id="bcv-value">764.35</span> Bs
-            </div>
-        </div>
-    </header>
-
-    <!-- HERO IMPACTANTE (Fallback local) -->
-    <section class="hero">
-        <div class="hero-layout">
-            <div class="hero-content">
-                <div class="hero-pill"><i class="fa-solid fa-fire text-yellow"></i> ¡LISTOS PARA ROCKEAR!</div>
-                <h1 class="hero-title" style="font-size: 3rem;">BURGER.<br><span class="text-gradient">ROCK.</span><br>METAL.</h1>
-                <p class="hero-subtitle">Las mejores hamburguesas de la ciudad. Pide ahora y te lo llevamos volando.</p>
-                <button class="hero-btn" onclick="document.getElementById('menu-grid').scrollIntoView({behavior: 'smooth'})">
-                    ¡VER MENÚ AHORA! <i class="fa-solid fa-arrow-down"></i>
-                </button>
-            </div>
-            <div class="hero-image-container">
-                <video src="img/portada_hero.mp4" class="hero-img" style="object-fit: cover;" autoplay loop muted playsinline id="fallback-hero-video"></video>
-            </div>
-        </div>
-    </section>
-
-    <!-- CARRUSEL DE PROMOCIONES -->
-    <div class="promo-slider-container">
-        <div class="promo-slider" id="promoSlider">
-            <div class="promo-slide">
-                <img src="img/promo1.jpg" alt="Promoción 1">
-            </div>
-            <div class="promo-slide">
-                <img src="img/promo2.jpg" alt="Promoción 2">
-            </div>
-        </div>
-        <!-- Indicadores (Opcional visual) -->
-        <div class="slider-indicators">
-            <div class="indicator active"></div>
-            <div class="indicator"></div>
-        </div>
-    </div>
-
-    <!-- MENÚ / CATÁLOGO -->
-    <main>
-        <div class="menu-header">
-            <h2 class="section-title">NUESTRO MENÚ</h2>
-        </div>
+    <!-- PANTALLA PRINCIPAL (DASHBOARD) -->
+    <div id="dashboard-screen" class="screen" style="display: none; flex-direction: row;">
         
-        <!-- BANNER DE CERRADO -->
-        <div id="store-closed-banner" class="store-closed-banner" style="display: none;">
-            <i class="fa-solid fa-store-slash"></i>
-            <span id="store-closed-text">Actualmente estamos CERRADOS.</span>
-        </div>
-
-
-        <!-- CONTENEDOR DE FILTROS DINÁMICOS -->
-        <div id="menu-filters" class="filters-container">
-            <!-- Los botones se generarán desde app.js -->
-        </div>
-
-        <div class="menu-grid" id="menu-grid">
-            <!-- Carga dinámica desde app.js -->
-        </div>
-    </main>
-
-    <!-- FOOTER -->
-    <footer>
-        <div class="footer-content">
-            <a href="#" target="_blank" rel="noopener" class="instagram-card" style="display: none;">
-                <i class="fa-brands fa-instagram text-gradient" style="font-size: 2rem;"></i>
-                <span>Síguenos en Instagram<br><strong class="ig-handle">@tu_instagram</strong></span>
-            </a>
-            
-            <div class="agency-signature" style="margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column; align-items: center; gap: 10px;">
-                <p style="font-size: 0.75rem; letter-spacing: 2px; color: #a1a1aa; margin: 0;">⚡ TECNOLOGÍA Y DISEÑO POR</p>
-                <a href="https://growstudioweb.vercel.app" target="_blank" rel="noopener" class="grow-brand" style="text-decoration: none; display: flex; align-items: center; gap: 8px;">
-                    <img src="https://raw.githubusercontent.com/jackbikepf/repo/main/growisotipo.png" onerror="this.src='img/growisotipo.png'; this.onerror=null;" alt="Grow Studio" style="width: 25px; height: 25px; filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));">
-                    <span style="font-size: 1.1rem; font-weight: 800; background: linear-gradient(90deg, #22d3ee, #f97316); -webkit-background-clip: text; color: transparent; letter-spacing: 1px;">GROW STUDIO</span>
-                </a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- BOTÓN FLOTANTE DEL CARRITO -->
-    <button class="cart-fab" id="cart-fab" onclick="toggleCart()">
-        <div class="fab-left">
-            <i class="fa-solid fa-cart-shopping"></i>
-            <span class="fab-label">MI PEDIDO</span>
-            <span class="cart-count" id="cart-count">0</span>
-        </div>
-        <div class="fab-right">
-            <div class="cart-total-usd" id="fab-total-usd">$0.00</div>
-            <div class="cart-total-bs" id="fab-total-bs">0.00 Bs</div>
-        </div>
-    </button>
-
-    <!-- MODAL DEL CARRITO -->
-    <div class="modal-overlay" id="cart-modal">
-        <div class="cart-container">
-            <!-- CABECERA FIJA -->
-            <div class="cart-header">
-                <h3><i class="fa-solid fa-bag-shopping text-yellow"></i> TU PEDIDO</h3>
-                <button class="close-btn" onclick="toggleCart()"><i class="fa-solid fa-xmark"></i></button>
+        <!-- SIDEBAR IZQUIERDO -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <img src="img/growlogo.png" alt="Grow Studio" width="180" style="cursor: pointer;" onclick="document.getElementById('client-manager').style.display='none'; document.getElementById('payments-screen').style.display='none'; document.getElementById('welcome-screen').style.display='flex'; document.querySelectorAll('.menu-btn, .menu-list li').forEach(el => el.classList.remove('active'));">
             </div>
             
-            <!-- CUERPO SCROLLEABLE -->
-            <div class="cart-body">
-                <!-- 1. FORMULARIO DE ENVÍO -->
-                <!-- 2. RESUMEN DE PRODUCTOS -->
-                <div class="cart-items-section">
-                    <h4 class="section-heading">Productos Seleccionados</h4>
-                    <div id="cart-items">
-                        <p class="empty-cart">Tu carrito está vacío.</p>
-                    </div>
-                </div>
+            <div class="sidebar-menu">
+                <p class="menu-label">MENÚ</p>
+                <button id="btn-new-client" class="menu-btn active">+ Nuevo Cliente</button>
+                <button id="btn-view-payments" class="menu-btn">💰 Pagos Recibidos</button>
+            </div>
 
-                <!-- 3. UPSELL / VENTA CRUZADA -->
-                <div class="cart-upsell-section" style="display: block;">
-                    <h5 class="upsell-title">¿Deseas agregar un extra?</h5>
-                    <div class="upsell-container">
-                        <!-- Botones generados dinámicamente por JS (renderUpsells) -->
-                    </div>
-                </div>
+            <div class="sidebar-menu" style="flex: 1; overflow-y: auto; margin-top: 40px;">
+                <p class="menu-label" style="font-weight: bold; color: white;">CLIENTES</p>
+                <ul id="clients-ul" class="menu-list">
+                    <!-- Dinámico -->
+                </ul>
+            </div>
+            
+            <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); margin-top: 20px; text-align: center;">
+                <p style="font-size: 11px; color: #6b7280;">Usuario activo:</p>
+                <p id="user-email" style="font-size: 12px; font-weight: bold; margin-bottom: 10px; color: var(--brand-cyan); word-break: break-all;"></p>
+                <button id="btn-logout" class="btn-primary" style="width: 100%; border:none; padding: 8px; font-size: 12px;">Cerrar Sesión</button>
+            </div>
+        </aside>
 
-                <!-- 1. FORMULARIO DE ENVÍO -->
-                <div class="cart-form-section">
-                    <h4 class="section-heading">Datos de Entrega</h4>
-                    
-                    <div class="form-group">
-                        <label class="form-label"><i class="fa-solid fa-truck-fast text-yellow"></i> Zona de Delivery:</label>
-                        <select id="delivery-zone" class="form-select" onchange="updateTotal()">
-                            <option value="0" data-type="delivery">SIN DELIVERY</option>
-                            <option value="1" data-type="delivery">Zona 1 Centro (+$1.00 USD)</option>
-                            <option value="2" data-type="delivery">Zona 2 (+$2.00 USD)</option>
-                            <option value="3" data-type="delivery">Zona 3 (+$3.00 USD)</option>
+        <!-- CONTENIDO PRINCIPAL -->
+        <main class="main-content">
+            
+            <!-- PANTALLA DE BIENVENIDA (Mostrada por defecto) -->
+            <section id="welcome-screen" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; padding: 40px;">
+                <img src="img/growisotipo.png" alt="Grow Studio SaaS" style="width: 250px; margin-bottom: 30px; animation: floatOrb 6s infinite alternate;">
+                <h1 style="font-size: 2.5rem; margin-bottom: 10px; background: linear-gradient(90deg, var(--brand-cyan), var(--brand-orange)); -webkit-background-clip: text; color: transparent;">Bienvenido al Modo Dios</h1>
+                <p style="font-size: 1.1rem; color: #a1a1aa; max-width: 500px; margin-bottom: 30px;">Selecciona un cliente en el menú lateral izquierdo para gestionar su menú, configurar su WhatsApp, o crea un nuevo cliente desde cero con Inteligencia Artificial.</p>
+            </section>
+
+            <!-- PANTALLA DE PAGOS -->
+            <section id="payments-screen" style="display: none; padding: 20px; height: 100%; flex-direction: column;">
+                <header class="top-bar" style="margin-bottom: 20px;">
+                    <h2>Pagos Recibidos</h2>
+                </header>
+                <div class="table-container" style="flex: 1;">
+                    <table id="payments-table">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Cédula</th>
+                                <th>Plan</th>
+                                <th>Monto</th>
+                                <th>Referencia</th>
+                                <th>Estado</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody id="payments-tbody">
+                            <!-- Dinámico -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- GESTOR DE CLIENTES (Oculto inicialmente) -->
+            <section class="client-manager" id="client-manager" style="display: none;">
+                
+                <header class="top-bar" style="display: flex; justify-content: space-between; align-items: center;">
+                    <h2 id="manager-title" style="display: flex; align-items: center; gap: 10px;">Selecciona un Cliente <a id="client-link" href="#" target="_blank" style="display:none; color: var(--primary); text-decoration: none;" title="Ver Tienda en Vivo"><i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 18px;"></i> 🔗</a></h2>
+                    <button id="btn-delete-client" class="btn-secondary btn-small" style="background-color: #ef4444; border:none; display:none;">🗑️ Eliminar Cliente</button>
+                </header>
+
+                <!-- Tarjetas de Métricas / Controles -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Estado SaaS</h3>
+                        <select id="client-status" class="modern-select">
+                            <option value="ACTIVO">🟢 Activo (Al día)</option>
+                            <option value="MOROSO">⚠️ Moroso (Suspendido)</option>
+                            <option value="SUSPENDIDO">🔴 Suspendido (Manual)</option>
                         </select>
                     </div>
                     
-                    <div class="form-group">
-                        <label class="form-label"><i class="fa-solid fa-user text-yellow"></i> Tu Nombre Completo:</label>
-                        <input type="text" id="customer-name" class="form-input" placeholder="Ej. María Pérez">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label"><i class="fa-solid fa-location-dot text-yellow"></i> Tu Dirección Exacta:</label>
-                        <input type="text" id="customer-address" class="form-input" placeholder="Manzana, Casa, Punto de referencia">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label"><i class="fa-solid fa-comment-dots text-yellow"></i> Nota para el pedido (Opcional):</label>
-                        <textarea id="customer-notes" class="form-input" placeholder="Ej. Sin salsas, alergia al maní..." rows="2" style="resize: none;"></textarea>
-                    </div>
-
-                    <div class="form-group" style="margin-top: 15px; border-top: 1px solid #333; padding-top: 15px;">
-                        <label class="form-label" style="color: #4ade80;"><i class="fa-solid fa-gift"></i> Código de Referido (Opcional):</label>
-                        <input type="text" id="referral-code" class="form-input" placeholder="Si tienes un código, colócalo aquí" style="border-color: #4ade80;">
-                    </div>
-                </div>
-
-                <!-- 2. FORMA DE PAGO -->
-                <div class="cart-form-section">
-                    <h4 class="section-heading">Forma de Pago</h4>
-                    <div class="form-group">
-                        <select id="payment-method" class="form-select" onchange="togglePaymentDetails()">
-                            <option value="Pago Móvil">Pago Móvil</option>
-                            <option value="Efectivo">Efectivo</option>
-                            <option value="Divisas">Divisas</option>
-                            <option value="USDT">USDT</option>
-                            <option value="Zelle">Zelle</option>
+                    <div class="stat-card">
+                        <h3>Horario Tienda</h3>
+                        <select id="store-status" class="modern-select">
+                            <option value="AUTO">🕒 Automático</option>
+                            <option value="ABIERTO">🟢 Forzar Abierto</option>
+                            <option value="CERRADO">🔴 Forzar Cerrado</option>
                         </select>
                     </div>
 
-                    <!-- DATOS DE PAGO MÓVIL -->
-                    <div id="pago-movil-details" class="payment-details-box">
-                        <p class="payment-instruction">Copia los datos para realizar tu pago:</p>
-                        
-                        <div class="copy-row">
-                            <div class="copy-label">Teléfono:</div>
-                            <div class="copy-box">
-                                <span id="pm-phone">04146992629</span>
-                                <button type="button" class="copy-btn" onclick="copyToClipboard('pm-phone', this)"><i class="fa-regular fa-copy"></i></button>
+                    <div class="stat-card">
+                        <h3>WhatsApp Pedidos</h3>
+                        <div style="display: flex; gap: 5px;">
+                            <input type="text" id="client-whatsapp" class="modern-select" placeholder="58412..." style="font-size: 14px;">
+                            <button id="btn-save-whatsapp" class="btn-primary btn-small">💾</button>
+                        </div>
+                        <h3 style="margin-top: 15px;">Instagram</h3>
+                        <div style="display: flex; gap: 5px;">
+                            <input type="text" id="client-instagram" class="modern-select" placeholder="@usuario o URL" style="font-size: 14px;">
+                            <button id="btn-save-instagram" class="btn-primary btn-small">💾</button>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <h3>Link de la Tienda</h3>
+                        <div style="display: flex; gap: 5px;">
+                            <input type="text" id="client-url" class="modern-select" placeholder="laflaca.vercel.app" style="font-size: 14px;">
+                            <button id="btn-save-url" class="btn-primary btn-small">💾</button>
+                            <button id="btn-visit-url" class="btn-secondary btn-small" title="Visitar Tienda"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="stat-card stat-highlight">
+                        <h3 style="color: var(--brand-orange); display: flex; justify-content: space-between; align-items: center;">
+                            Cobranza SaaS
+                            <span id="billing-status-indicator" style="width: 10px; height: 10px; border-radius: 50%; background: gray; display: inline-block;"></span>
+                        </h3>
+                        <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 5px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <label style="font-size: 12px; color: #a1a1aa;">Plan Actual</label>
+                                <select id="client-plan" class="modern-select" style="width: 90px; padding: 4px; font-size: 11px;">
+                                    <option value="PRUEBA">Prueba 7 Días</option>
+                                    <option value="MENSUAL">Mensual ($15)</option>
+                                    <option value="ANUAL">Anual ($50)</option>
+                                </select>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <label style="font-size: 12px; color: #a1a1aa;">Cédula / RIF</label>
+                                <input type="text" id="client-cedula" class="modern-select" style="width: 110px; padding: 4px; font-size: 11px;" placeholder="Ej. 14074299">
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <label style="font-size: 12px; color: #a1a1aa;">Vence el:</label>
+                                <input type="date" id="client-vencimiento" class="modern-select" style="width: 110px; padding: 4px; font-size: 11px;">
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <label style="font-size: 12px; color: #a1a1aa;">Deuda ($)</label>
+                                <input type="number" id="client-deuda" class="modern-select" style="width: 70px; padding: 4px;" value="0">
+                            </div>
+                            <div style="display: flex; gap: 5px;">
+                                <button id="btn-save-billing" class="btn-secondary btn-small" style="flex: 1; border: 1px solid var(--brand-orange); color: var(--brand-orange);">Guardar</button>
+                                <button id="btn-whatsapp-cobro" onclick="enviarCobroWhatsApp()" class="btn-primary btn-small" style="background: #25D366; border-color: #25D366; display: none;" title="Avisar por WhatsApp"><i class="fa-brands fa-whatsapp"></i> Cobrar</button>
                             </div>
                         </div>
-
-                        <div class="copy-row">
-                            <div class="copy-label">Cédula:</div>
-                            <div class="copy-box">
-                                <span id="pm-id">14075559</span>
-                                <button type="button" class="copy-btn" onclick="copyToClipboard('pm-id', this)"><i class="fa-regular fa-copy"></i></button>
+                    </div>
+                    
+                    <div class="stat-card stat-highlight" style="display: flex; flex-direction: column; justify-content: center;">
+                        <h3>Acciones Rápidas</h3>
+                        <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px;">
+                            <div style="display: flex; gap: 10px;">
+                                <button id="btn-add-product" class="btn-primary btn-small" style="flex:1;">+ Producto</button>
+                                <button id="btn-import-bulk" class="btn-secondary btn-small" style="flex:1; border: 1px solid var(--primary); color: var(--primary);">✨ IA Bulk</button>
                             </div>
+                            <button id="btn-generate-qr" class="btn-secondary btn-small" style="width: 100%;">🔲 Generar QR Menú</button>
                         </div>
+                    </div>
+                    
 
-                        <div class="copy-row">
-                            <div class="copy-label">Banco:</div>
-                            <div class="copy-box">
-                                <span id="pm-bank">0108 - Provincial</span>
-                                <button type="button" class="copy-btn" onclick="copyToClipboard('pm-bank', this)"><i class="fa-regular fa-copy"></i></button>
-                            </div>
+
+                    <div class="stat-card" style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3);">
+                        <h3 style="color: #10b981;">Estadísticas</h3>
+                        <div style="text-align: center; margin-top: 10px;">
+                            <span style="font-size: 11px; color: gray; text-transform: uppercase;">Visitas Totales</span>
+                            <h1 id="client-visitas" style="color: #10b981; font-size: 30px;">0</h1>
+                            <button class="btn-primary btn-small" style="margin-top: 10px; font-size: 11px; width: 100%; cursor: pointer;" onclick="generarReporteWhatsapp()">Generar Reporte 📊</button>
                         </div>
-
-                        <div class="copy-row highlight-copy">
-                            <div class="copy-label">Monto Exacto:</div>
-                            <div class="copy-box">
-                                <span id="pm-amount">0.00 Bs</span>
-                                <button type="button" class="copy-btn" onclick="copyToClipboard('pm-amount', this)"><i class="fa-regular fa-copy"></i></button>
-                            </div>
-                        </div>
-
-                        <!-- BOTÓN COPIAR TODO -->
-                        <button type="button" class="copy-all-btn" onclick="copyAllPagoMovil(this)" style="width: 100%; padding: 10px; margin-top: 15px; background: transparent; border: 1px solid var(--text-muted); color: var(--text-main); border-radius: 8px; cursor: pointer; font-weight: 600; display: flex; justify-content: center; align-items: center; gap: 8px; transition: 0.3s;">
-                            <i class="fa-regular fa-copy"></i> COPIAR TODOS LOS DATOS
-                        </button>
                     </div>
                 </div>
 
+                
+                    <!-- Hero Banner Card -->
+                    <div class="stat-card" style="margin-bottom: 20px;">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                            <div>
+                                <h3 style="margin: 0 0 10px 0; display: flex; align-items: center; gap: 8px;">
+                                    <i class="fa-solid fa-image" style="color: var(--brand-orange);"></i> Portada Premium (Hero)
+                                </h3>
+                                <p style="font-size: 12px; color: #a1a1aa; margin: 0 0 10px 0;">Pega un link directo de un video MP4 o una Imagen. Si lo dejas en blanco, usar el diseo normal.</p>
+                                <input type="text" id="client-hero-url" placeholder="https://ejemplo.com/video.mp4" class="input-modern" style="width: 100%; margin-bottom: 10px;">
+                                <button id="btn-save-hero" class="btn-primary btn-small">Guardar Portada</button>
+                            </div>
+                        </div>
+                    </div>
 
+                <div class="products-section">
+                    <h3 style="margin-top: 0;">Menú de Productos</h3>
+                    <div class="table-container">
+                        <table id="products-table">
+                            <thead>
+                                <tr>
+                                    <th>Imagen</th>
+                                    <th>Nombre</th>
+                                    <th>Descripción</th>
+                                    <th>Categoría</th>
+                                    <th>Precio ($)</th>
+                                    <th>Activo</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="products-tbody">
+                                <!-- Dinámico -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- SECCIÓN DE PROMOS (BANNERS) -->
+                <div class="products-section" style="margin-top: 30px;">
+                    <h3 style="margin-top: 0;">Imágenes de Promociones (Banners)</h3>
+                    <p style="font-size: 12px; color: #9ca3af; margin-top: -10px; margin-bottom: 15px;">Aparecerán arriba del menú de este cliente.</p>
+                    <div class="table-container">
+                        <table id="promos-table">
+                            <thead>
+                                <tr>
+                                    <th>Archivo Local</th>
+                                    <th>Nombre (Opcional)</th>
+                                    <th>Descripción (Opcional)</th>
+                                    <th>Precio ($) (Opcional)</th>
+                                    <th>Activo</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="promos-tbody">
+                                <!-- Dinámico -->
+                            </tbody>
+                        </table>
+                        <button id="btn-add-promo" class="btn-primary btn-small" style="margin-top: 15px;">+ Añadir Promo</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- MODAL DE IMPORTACIÓN CON IA -->
+    <div id="import-modal" class="screen" style="display: none; position: fixed; top: 0; left: 0; width: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center;">
+        <div class="login-card" style="max-width: 600px; width: 90%; text-align: left;">
+            <h2 style="text-align: center; margin-top:0;">✨ Importar con Inteligencia Artificial</h2>
             
-            </div> <!-- End cart-body -->
+            <div class="input-group">
+                <label>Tu API Key de Gemini (se guarda en tu navegador)</label>
+                <input type="password" id="gemini-api-key" placeholder="AIzaSy...">
+            </div>
 
-            <!-- FOOTER FIJO CON TOTALES -->
-            <div class="cart-footer">
-                <div class="totals">
-                    <div class="total-row">
-                        <span>Subtotal Productos:</span>
-                        <span id="summary-subtotal">$0.00</span>
-                    </div>
-                    <div class="total-row">
-                        <span>Envío / Delivery:</span>
-                        <span id="summary-delivery">$0.00</span>
-                    </div>
-                    <div class="total-row grand-total">
-                        <span>TOTAL A PAGAR:</span>
-                        <div class="total-box">
-                            <span id="summary-total-usd">$0.00</span>
-                            <span class="total-bs" id="summary-total-bs">0.00 Bs</span>
-                        </div>
-                    </div>
-                </div>
+            <div class="input-group">
+                <label>Pega el texto crudo del menú (WhatsApp, Word, etc.)</label>
+                <textarea id="import-raw-text" rows="8" style="width: 100%; background: var(--bg-dark); color: #fff; border: 1px solid var(--border); padding: 10px; border-radius: 6px; box-sizing: border-box;" placeholder='Ejemplo:&#10;Hamburguesa sencilla 5$&#10;Perro caliente con papas 3.50$&#10;Coca Cola 1.50$'></textarea>
+            </div>
+            
+            <p id="ai-loading-text" style="display:none; color: var(--primary); text-align: center; font-weight: bold;">🧠 La IA está leyendo el menú y extrayendo los productos... (esto toma unos segundos)</p>
 
-                <button class="whatsapp-btn" onclick="sendOrder()">
-                    <i class="fa-brands fa-whatsapp fa-xl"></i> ENVIAR PEDIDO POR WHATSAPP
-                </button>
+            <div style="display: flex; gap: 10px; margin-top: 15px;">
+                <button id="btn-confirm-import" class="btn-primary">Generar y Subir</button>
+                <button id="btn-cancel-import" class="btn-secondary">Cancelar</button>
             </div>
         </div>
-    <!-- SCRIPTS -->
-    <script src="js/config.js" charset="utf-8"></script>
-    <!-- Carga del Cerebro Central (Desde Vercel) -->
-    <script src="https://growstudiocore.vercel.app/core.js" charset="utf-8"></script>
-    <!-- Código específico de este cliente (ahora vacío) -->
-    <script src="js/app.js" charset="utf-8"></script>
-    <script>
-        // Registro de Service Worker para PWA (Instalación Offline)
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js')
-                    .then(reg => console.log('PWA ServiceWorker registrado'))
-                    .catch(err => console.error('PWA ServiceWorker falló:', err));
-            });
-        }
-    </script>
+    </div>
+
+    
+    <script type="module" src="js/modules/firebase-init.js"></script>
+    <script type="module" src="js/modules/state.js"></script>
+    <script type="module" src="js/modules/auth.js"></script>
+    <script type="module" src="js/modules/clients.js"></script>
+    <script type="module" src="js/modules/products.js"></script>
+    <script type="module" src="js/modules/billing.js"></script>
+    <script type="module" src="js/modules/reports.js"></script>
+    <script type="module" src="js/modules/qr-config.js"></script>
+    <script type="module" src="js/modules/hero.js"></script>
+
+    <!-- MODAL EDITAR PRODUCTO -->
+    <div id="edit-product-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center;">
+        <div style="background: var(--bg-card); padding: 25px; border-radius: 12px; border: 1px solid var(--border); width: 90%; max-width: 400px;">
+            <h3 style="margin-bottom: 15px; color: white;">✏️ Editar Producto</h3>
+            <input type="hidden" id="edit-product-index">
+            
+            <label style="font-size: 12px; color: gray;">Nombre</label>
+            <input type="text" id="edit-product-nombre" class="input-modern" style="margin-bottom: 15px; width: 100%; box-sizing: border-box;">
+            
+            <label style="font-size: 12px; color: gray;">Precio ($)</label>
+            <input type="number" step="0.01" id="edit-product-precio" class="input-modern" style="margin-bottom: 15px; width: 100%; box-sizing: border-box;">
+            
+            <label style="font-size: 12px; color: gray;">Categoría</label>
+            <input type="text" id="edit-product-categoria" class="input-modern" style="margin-bottom: 15px; width: 100%; box-sizing: border-box;">
+            
+            <label style="font-size: 12px; color: gray;">Descripción</label>
+            <input type="text" id="edit-product-descripcion" class="input-modern" style="margin-bottom: 15px; width: 100%; box-sizing: border-box;">
+            
+            <label style="font-size: 12px; color: gray;">Imagen (URL o archivo)</label>
+            <input type="text" id="edit-product-imagen" class="input-modern" style="margin-bottom: 20px; width: 100%; box-sizing: border-box;">
+            
+            <div style="display: flex; gap: 10px;">
+                <button id="btn-cancel-edit-product" class="btn-secondary" style="flex: 1;">Cancelar</button>
+                <button id="btn-save-edit-product" class="btn-primary" style="flex: 1;">Guardar Cambios</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- MODAL QR -->
+    <div id="qr-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center;">
+        <div style="background: var(--bg-card); padding: 25px; border-radius: 12px; border: 1px solid var(--border); width: 90%; max-width: 350px; text-align: center;">
+            <h3 style="margin-bottom: 15px; color: white;">Código QR del Menú</h3>
+            <div id="qr-code-container" style="background: white; padding: 20px; border-radius: 8px; display: inline-block; margin-bottom: 15px;"></div>
+            <p id="qr-url-text" style="color: var(--brand-orange); font-size: 12px; margin-bottom: 20px; word-break: break-all;"></p>
+            <div style="display: flex; gap: 10px;">
+                <button id="btn-close-qr" class="btn-secondary" style="flex: 1;">Cerrar</button>
+                <button id="btn-download-qr" class="btn-primary" style="flex: 1;">📥 Descargar</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script type="module" src="js/modules/firebase-init.js"></script>
+    <script type="module" src="js/modules/state.js"></script>
+    <script type="module" src="js/modules/auth.js"></script>
+    <script type="module" src="js/modules/clients.js"></script>
+    <script type="module" src="js/modules/products.js"></script>
+    <script type="module" src="js/modules/billing.js"></script>
+    <script type="module" src="js/modules/reports.js"></script>
+    <script type="module" src="js/modules/qr-config.js"></script>
+    <script type="module" src="js/modules/hero.js"></script>
 </body>
 </html>

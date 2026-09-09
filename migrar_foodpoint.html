@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Migrar Food Point</title>
+    <meta charset="utf-8">
+    <style>
+        body { font-family: sans-serif; text-align: center; margin-top: 50px; background: #111; color: white; }
+        .success { color: #10b981; }
+        .error { color: #ef4444; }
+    </style>
+</head>
+<body>
+    <h1 id="status">Obteniendo productos antiguos... ⏳</h1>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            projectId: "grow-studio-menus",
+            appId: "1:152582182898:web:cf17e88b6b1f861cdc7d6b",
+            storageBucket: "grow-studio-menus.firebasestorage.app",
+            apiKey: "AIzaSyAv7GDSLS3Kwb-aMAhyQE3YgnPkCNg8cvg",
+            authDomain: "grow-studio-menus.firebaseapp.com",
+            messagingSenderId: "152582182898",
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        async function run() {
+            try {
+                // 1. Descargar menú antiguo
+                const url = "https://script.google.com/macros/s/AKfycbwpbKJCOZX6wGDmdyA6v4EuZQZu5eUC4V6LLp1Rp4Pq66ob1ynfrKDKiDP5ejbJXYq6hQ/exec?action=getMenu";
+                const res = await fetch(url);
+                const data = await res.json();
+                
+                const productos = data.menu || [];
+                
+                if (productos.length === 0) {
+                    throw new Error("No se encontraron productos en Google Sheets.");
+                }
+
+                document.getElementById("status").innerText = "Guardando " + productos.length + " productos en Firebase... 🚀";
+
+                // 2. Formatear y actualizar en Firebase
+                // Limpiar posibles errores de la hoja
+                const productosLimpios = productos.map(p => ({
+                    id: String(p.id),
+                    nombre: p.nombre || "",
+                    categoria: p.categoria || "General",
+                    descripcion: p.descripcion || "",
+                    precio: parseFloat(p.precio) || 0,
+                    imagen: p.imagen || "",
+                    activo: p.activo || "SI"
+                }));
+
+                await updateDoc(doc(db, "clientes", "foodpoint"), {
+                    productos: productosLimpios
+                });
+
+                document.getElementById("status").innerHTML = "✅ ¡Migración de " + productosLimpios.length + " productos exitosa!<br><br><span style='font-size:16px; font-weight:normal; color:#ccc'>Ya puedes cerrar esta ventana y recargar tu panel Admin.</span>";
+                document.getElementById("status").className = "success";
+            } catch (err) {
+                console.error(err);
+                document.getElementById("status").innerText = "❌ Error: " + err.message;
+                document.getElementById("status").className = "error";
+            }
+        }
+        run();
+    </script>
+</body>
+</html>

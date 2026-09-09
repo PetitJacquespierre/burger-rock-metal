@@ -1,6 +1,6 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut, sendPasswordResetEmail, setPersistence, browserLocalPersistence, browserSessionPersistence } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-import { getFirestore, collection, addDoc, getDocs, doc, deleteDoc, updateDoc, onSnapshot, getDoc, query, orderBy, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { initializeApp } from "fs";
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut, sendPasswordResetEmail, setPersistence, browserLocalPersistence, browserSessionPersistence } from "fs";
+import { getFirestore, collection, addDoc, getDocs, doc, deleteDoc, updateDoc, onSnapshot, getDoc, query, orderBy, setDoc } from "fs";
 
 // ConfiguraciÃƒÆ’Ã‚Â³n de Firebase (Generada automÃƒÆ’Ã‚Â¡ticamente)
 const firebaseConfig = {
@@ -40,7 +40,6 @@ const btnAddProduct = document.getElementById('btn-add-product');
 const btnDeleteClient = document.getElementById('btn-delete-client');
 
 let currentClientId = null;
-let clientsData = {};
 
 // ==========================================
 // AUTENTICACIÃƒÆ’Ã¢â‚¬Å“N
@@ -75,7 +74,7 @@ loginForm.addEventListener('submit', async (e) => {
     btnSubmit.disabled = true;
 
     try {
-        try { await setPersistence(auth, rememberMe ? browserLocalPersistence : browserSessionPersistence); } catch(e) { console.warn("Persistence error", e); }
+        await setPersistence(auth, rememberMe ? browserLocalPersistence : browserSessionPersistence);
         await signInWithEmailAndPassword(auth, email, password);
     } catch (error) {
         console.error("Firebase Login Error:", error);
@@ -147,7 +146,6 @@ btnNewClient.addEventListener('click', async () => {
     const id = prompt("Ingresa el ID ÃƒÆ’Ã‚Âºnico del cliente (ej. la_flaca, foodpoint):");
     if (!id) return;
     
-
     const name = prompt("Nombre comercial del cliente (ej. Pasteles La Flaca):");
     if (!name) return;
 
@@ -215,8 +213,7 @@ async function openClientManager(id, data, liElement) {
     const colorHex = data.colorPrimario || "#F97316";
     document.getElementById('client-color-picker').value = colorHex;
     document.getElementById('client-color-hex').value = colorHex;
-    const receiveOrdersEl = document.getElementById('client-receive-orders');
-    if (receiveOrdersEl) receiveOrdersEl.checked = (data.recibirPedidos !== false);
+    document.getElementById('client-status-abierto').checked = data.recibirPedidos !== false;
     document.getElementById('client-visitas').innerText = data.visitas || 0;
     
     document.querySelectorAll('#clients-ul li').forEach(li => li.classList.remove('active'));
@@ -231,27 +228,6 @@ async function openClientManager(id, data, liElement) {
         ];
     }
     
-    // Populate Billing
-    if (document.getElementById('client-plan')) {
-        document.getElementById('client-plan').value = data.plan || 'PRUEBA';
-        document.getElementById('client-vencimiento').value = data.fechaVencimiento || '';
-        document.getElementById('client-deuda').value = data.deuda || 0;
-        
-        const indicator = document.getElementById('billing-status-indicator');
-        if (indicator) {
-            if (data.fechaVencimiento) {
-                const hoy = new Date();
-                const fechaV = new Date(data.fechaVencimiento + 'T00:00:00');
-                const diff = Math.ceil((fechaV - hoy) / (1000*60*60*24));
-                if (diff > 7) indicator.style.background = '#10b981';
-                else if (diff >= 0 && diff <= 7) indicator.style.background = '#f59e0b';
-                else indicator.style.background = '#ef4444';
-            } else {
-                indicator.style.background = 'gray';
-            }
-        }
-    }
-
     renderProducts(data.productos || []);
     renderPromos(data.promos);
 }
@@ -262,7 +238,7 @@ btnDeleteClient.addEventListener('click', async () => {
     const confirmacion = confirm(`Ãƒâ€šÃ‚Â¿EstÃƒÆ’Ã‚Â¡s SEGURO de que quieres borrar a ${currentClientId} por completo? Esto eliminarÃƒÆ’Ã‚Â¡ todo su menÃƒÆ’Ã‚Âº y configuraciÃƒÆ’Ã‚Â³n.`);
     if (confirmacion) {
         try {
-            const { deleteDoc, doc } = await import("https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js");
+            const { deleteDoc, doc } = await import("fs");
             await deleteDoc(doc(db, "clientes", currentClientId));
             alert("Cliente eliminado correctamente.");
             clientManager.style.display = 'none';
@@ -280,7 +256,7 @@ btnDeleteClient.addEventListener('click', async () => {
 clientStatus.addEventListener('change', async (e) => {
     if (!currentClientId) return;
     try {
-        const { doc, updateDoc } = await import("https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js");
+        const { doc, updateDoc } = await import("fs");
         await updateDoc(doc(db, "clientes", currentClientId), {
             estado: e.target.value
         });
@@ -293,7 +269,7 @@ clientStatus.addEventListener('change', async (e) => {
 storeStatus.addEventListener('change', async (e) => {
     if (!currentClientId) return;
     try {
-        const { doc, updateDoc } = await import("https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js");
+        const { doc, updateDoc } = await import("fs");
         await updateDoc(doc(db, "clientes", currentClientId), {
             tiendaAbierta: e.target.value
         });
@@ -306,7 +282,7 @@ storeStatus.addEventListener('change', async (e) => {
 btnSaveWhatsapp.addEventListener('click', async () => {
     if (!currentClientId) return;
     try {
-        const { doc, updateDoc } = await import("https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js");
+        const { doc, updateDoc } = await import("fs");
         await updateDoc(doc(db, "clientes", currentClientId), {
             whatsapp: clientWhatsapp.value.trim()
         });
@@ -320,7 +296,7 @@ btnSaveWhatsapp.addEventListener('click', async () => {
 btnSaveUrl.addEventListener('click', async () => {
     if (!currentClientId) return;
     try {
-        const { doc, updateDoc } = await import("https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js");
+        const { doc, updateDoc } = await import("fs");
         const newUrl = clientUrl.value.trim();
         await updateDoc(doc(db, "clientes", currentClientId), {
             url: newUrl
@@ -345,7 +321,7 @@ window.actualizarProducto = async function(index, campo, valor) {
     if (!currentClientId) return;
     currentClientData.productos[index][campo] = valor;
     try {
-        const { doc, updateDoc } = await import("https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js");
+        const { doc, updateDoc } = await import("fs");
         await updateDoc(doc(db, "clientes", currentClientId), { productos: currentClientData.productos });
         if (campo === 'imagen') renderProducts(currentClientData.productos); // Re-render solo si cambia la imagen para actualizar preview
     } catch(e) { console.error(e); alert("Error guardando"); }
@@ -357,16 +333,16 @@ window.agregarProductoRapido = async function() {
     if (!nombre) return;
     const prod = {
         nombre: nombre,
-        descripcion: document.getElementById('new-prod-desc') ? document.getElementById('new-prod-desc').value : "",
         imagen: document.getElementById('new-prod-imagen').value || 'hamburguesa.png',
         categoria: document.getElementById('new-prod-categoria').value || 'General',
         precio: parseFloat(document.getElementById('new-prod-precio').value) || 0,
+        descripcion: "",
         activo: "SI"
     };
     if(!currentClientData.productos) currentClientData.productos = [];
     currentClientData.productos.push(prod);
     try {
-        const { doc, updateDoc } = await import("https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js");
+        const { doc, updateDoc } = await import("fs");
         await updateDoc(doc(db, "clientes", currentClientId), { productos: currentClientData.productos });
         renderProducts(currentClientData.productos);
     } catch(e) { console.error(e); }
@@ -381,7 +357,6 @@ function renderProducts(productos) {
     newTr.innerHTML = `
         <td><input type="text" id="new-prod-imagen" class="modern-select" placeholder="ej. pizza.jpg" style="width:100px; padding:4px;"></td>
         <td><input type="text" id="new-prod-nombre" class="modern-select" placeholder="Nuevo Producto..." style="width:120px; padding:4px;"></td>
-        <td><input type="text" id="new-prod-desc" class="modern-select" placeholder="Descripción..." style="width:150px; padding:4px;"></td>
         <td><input type="text" id="new-prod-categoria" class="modern-select" placeholder="Categoría" style="width:80px; padding:4px;"></td>
         <td><input type="number" id="new-prod-precio" class="modern-select" placeholder="0" style="width:60px; padding:4px;"></td>
         <td>-</td>
@@ -399,7 +374,6 @@ function renderProducts(productos) {
         tr.innerHTML = `
             <td><input type="text" class="modern-select" value="${p.imagen || ''}" onchange="actualizarProducto(${index}, 'imagen', this.value)" style="width:100px; padding:4px;"></td>
             <td><input type="text" class="modern-select" value="${p.nombre || ''}" onchange="actualizarProducto(${index}, 'nombre', this.value)" style="width:120px; padding:4px;"></td>
-            <td><input type="text" class="modern-select" value="${p.descripcion || ''}" onchange="actualizarProducto(${index}, 'descripcion', this.value)" style="width:150px; padding:4px;"></td>
             <td><input type="text" class="modern-select" value="${p.categoria || ''}" onchange="actualizarProducto(${index}, 'categoria', this.value)" style="width:80px; padding:4px;"></td>
             <td><input type="number" class="modern-select" value="${p.precio || 0}" onchange="actualizarProducto(${index}, 'precio', parseFloat(this.value))" style="width:60px; padding:4px;"></td>
             <td>
@@ -420,7 +394,7 @@ window.deleteProduct = async function(index) {
     if(!confirm("¿Eliminar este producto?")) return;
     currentClientData.productos.splice(index, 1);
     try {
-        const { doc, updateDoc } = await import("https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js");
+        const { doc, updateDoc } = await import("fs");
         await updateDoc(doc(db, "clientes", currentClientId), { productos: currentClientData.productos });
         renderProducts(currentClientData.productos);
     } catch (e) { alert("Error."); }
@@ -433,7 +407,7 @@ window.actualizarPromo = async function(index, campo, valor) {
     if (!currentClientId) return;
     currentClientData.promos[index][campo] = valor;
     try {
-        const { doc, updateDoc } = await import("https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js");
+        const { doc, updateDoc } = await import("fs");
         await updateDoc(doc(db, "clientes", currentClientId), { promos: currentClientData.promos });
     } catch(e) { console.error(e); }
 };
@@ -469,7 +443,7 @@ window.deletePromo = async function(index) {
     if(!confirm("Ãƒâ€šÃ‚Â¿Eliminar esta promo de la lista?")) return;
     currentClientData.promos.splice(index, 1);
     try {
-        const { doc, updateDoc } = await import("https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js");
+        const { doc, updateDoc } = await import("fs");
         await updateDoc(doc(db, "clientes", currentClientId), {
             promos: currentClientData.promos
         });
@@ -486,7 +460,7 @@ btnAddPromo.addEventListener('click', async () => {
     currentClientData.promos.push({ imagen: filename, activo: 'SI' });
     
     try {
-        const { doc, updateDoc } = await import("https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js");
+        const { doc, updateDoc } = await import("fs");
         await updateDoc(doc(db, "clientes", currentClientId), {
             promos: currentClientData.promos
         });
@@ -540,7 +514,7 @@ btnAddProduct.addEventListener('click', async () => {
 });
 
 // LÃƒÆ’Ã‚Â³gica para el botÃƒÆ’Ã‚Â³n Importar con IA
-if(btnImportBulk) btnImportBulk.addEventListener('click', () => {
+btnImportBulk.addEventListener('click', () => {
     importRawText.value = ''; // Limpiar el ÃƒÆ’Ã‚Â¡rea de texto
     // Cargar API key guardada
     const savedKey = localStorage.getItem('gemini_api_key');
@@ -548,11 +522,11 @@ if(btnImportBulk) btnImportBulk.addEventListener('click', () => {
     importModal.style.display = 'flex';
 });
 
-if(btnCancelImport) btnCancelImport.addEventListener('click', () => {
+btnCancelImport.addEventListener('click', () => {
     importModal.style.display = 'none';
 });
 
-if(btnConfirmImport) btnConfirmImport.addEventListener('click', async () => {
+btnConfirmImport.addEventListener('click', async () => {
     if (!currentClientId) return;
     
     const rawText = importRawText.value.trim();
@@ -653,7 +627,7 @@ const paymentsScreen = document.getElementById('payments-screen');
 const paymentsTbody = document.getElementById('payments-tbody');
 
 // BotÃƒÆ’Ã‚Â³n sidebar para ver pagos
-if(btnViewPayments) btnViewPayments.addEventListener('click', () => {
+btnViewPayments.addEventListener('click', () => {
     clientManager.style.display = 'none';
     welcomeScreen.style.display = 'none';
     paymentsScreen.style.display = 'flex';
@@ -712,7 +686,7 @@ window.aprobarPago = async function(pagoId, cedulaPago, montoPagado, fechaPago, 
     if (!confirm("Â¿Confirmas que recibiste $" + montoPagado + " y deseas descontarlo de la deuda del cliente " + cedulaPago + "?")) return;
     
     try {
-        const { doc, updateDoc, getDocs, query, collection, where } = await import("https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js");
+        const { doc, updateDoc, getDocs, query, collection, where } = await import("fs");
         
         await updateDoc(doc(db, "pagos", pagoId), {
             estado: "APROBADO"
@@ -759,43 +733,20 @@ window.aprobarPago = async function(pagoId, cedulaPago, montoPagado, fechaPago, 
 if (btnSaveBilling) {
     btnSaveBilling.addEventListener('click', async () => {
         if (!currentClientId) return;
-        const originalText = btnSaveBilling.innerText;
-        btnSaveBilling.innerText = "Guardando...";
-        btnSaveBilling.disabled = true;
         try {
             await updateDoc(doc(db, "clientes", currentClientId), {
-                plan: inputPlan.value,
-                deuda: parseFloat(inputDeuda.value) || 0,
-                fechaVencimiento: inputVencimiento.value
+                plan: clientPlan.value,
+                deuda: parseFloat(clientDeuda.value) || 0,
+                fechaVencimiento: clientVencimiento.value
             });
             if (currentClientData) {
-                currentClientData.plan = inputPlan.value;
-                currentClientData.deuda = parseFloat(inputDeuda.value) || 0;
-                currentClientData.fechaVencimiento = inputVencimiento.value;
+                currentClientData.plan = clientPlan.value;
+                currentClientData.deuda = parseFloat(clientDeuda.value) || 0;
+                currentClientData.fechaVencimiento = clientVencimiento.value;
             }
-            
-            if (billingStatusIndicator) {
-                if (inputVencimiento.value) {
-                    const hoy = new Date();
-                    const fechaV = new Date(inputVencimiento.value + 'T00:00:00');
-                    const diff = Math.ceil((fechaV - hoy) / (1000*60*60*24));
-                    if (diff > 7) billingStatusIndicator.style.background = '#10b981';
-                    else if (diff >= 0 && diff <= 7) billingStatusIndicator.style.background = '#f59e0b';
-                    else billingStatusIndicator.style.background = '#ef4444';
-                } else {
-                    billingStatusIndicator.style.background = 'gray';
-                }
-            }
-            
-            btnSaveBilling.innerText = "¡Guardado!";
-            setTimeout(() => {
-                btnSaveBilling.innerText = originalText;
-                btnSaveBilling.disabled = false;
-            }, 2000);
+            alert("Datos de facturaciÃƒÆ’Ã‚Â³n actualizados");
         } catch (error) {
             alert("Error: " + error.message);
-            btnSaveBilling.innerText = originalText;
-            btnSaveBilling.disabled = false;
         }
     });
 }
@@ -815,14 +766,13 @@ window.generarReporteWhatsapp = function() {
         return;
     }
     
-    let tlf = telefono.replace(/\D/g, ''); 
+    let tlf = telefono.replace(/\D/g, ''); // Quitar espacios y símbolos
     
-    const mensaje = `¡Hola ${nombre}! 📊 Aquí tienes tu reporte mensual de Grow Studio.\n\nEste mes tu Menú Digital ha recibido *${visitas} visitas*.\n\n¡Tus clientes están amando tu menú digital! Gracias por confiar en nosotros. 🚀`;
+    const mensaje = ¡Hola ! 📊 Aquí tienes tu reporte mensual de Grow Studio.\n\nEste mes tu Menú Digital ha recibido * visitas*.\n\n¡Tus clientes están amando tu menú digital! Gracias por confiar en nosotros. 🚀;
     const url = `https://web.whatsapp.com/send?phone=${tlf}&text=${encodeURIComponent(mensaje)}`;
     
     window.open(url, '_blank');
 };
-
 
 // Robot Cobrador (Llamado en auth)
 window.correrRobotCobrador = async function() {
@@ -853,6 +803,10 @@ window.correrRobotCobrador = async function() {
         console.error("Error en Robot Automático:", e);
     }
 };
+    } catch (e) {
+        console.error("Error en Robot Cobrador:", e);
+    }
+};
 
 // ==========================================
 // NUEVAS FUNCIONALIDADES: COLOR, QR Y CONFIG
@@ -880,7 +834,7 @@ if (btnSaveConfig) {
         const recibirPedidos = document.getElementById('client-status-abierto').checked;
         
         try {
-            const { doc, updateDoc } = await import("https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js");
+            const { doc, updateDoc } = await import("fs");
             await updateDoc(doc(db, "clientes", currentClientId), {
                 colorPrimario: newColor,
                 recibirPedidos: recibirPedidos
@@ -1025,64 +979,3 @@ window.enviarCobroWhatsApp = function() {
 ¡Cualquier duda estamos a la orden!`);
     window.open(`https://wa.me/${tel}?text=${msg}`, '_blank');
 };
-
-
-// ==============================================================
-// GENERADOR DE QR
-// ==============================================================
-window.generarQRMenu = function() {
-    const currentId = clientSelector ? clientSelector.value : null;
-    if (!currentId) {
-        alert("Primero selecciona un cliente del menú superior.");
-        return;
-    }
-    
-    // Asumimos que los menús están en dominio vercel.app o growstudio
-    // O mejor aún, usamos el valor del input de la URL si existe
-    const clientUrlInput = document.getElementById('client-url');
-    let menuUrl = "";
-    if (clientUrlInput && clientUrlInput.value) {
-        menuUrl = "https://" + clientUrlInput.value;
-    } else {
-        // Fallback
-        if (currentId === "demo") menuUrl = "https://demomenudigital.vercel.app/";
-        else if (currentId === "laflaca") menuUrl = "https://pasteleslaflaca.vercel.app/";
-        else menuUrl = "https://" + currentId + ".vercel.app/";
-    }
-    
-    const qrContainer = document.getElementById('qr-code-container');
-    const qrModal = document.getElementById('qr-modal');
-    const qrUrlText = document.getElementById('qr-url-text');
-    
-    if (qrContainer && typeof QRCode !== 'undefined') {
-        qrContainer.innerHTML = "";
-        new QRCode(qrContainer, {
-            text: menuUrl,
-            width: 200,
-            height: 200,
-            colorDark : "#000000",
-            colorLight : "#ffffff",
-            correctLevel : QRCode.CorrectLevel.H
-        });
-        if (qrUrlText) qrUrlText.innerText = menuUrl;
-        if (qrModal) qrModal.style.display = 'flex';
-    } else {
-        alert("No se pudo generar el QR, falta la librería de QRCode.");
-    }
-};
-
-window.cerrarModalQR = function() {
-    const qrModal = document.getElementById('qr-modal');
-    if (qrModal) qrModal.style.display = 'none';
-};
-const btnCloseQr = document.getElementById('btn-close-qr');
-if (btnCloseQr) btnCloseQr.onclick = window.cerrarModalQR;
-window.cerrarModalQR = function() {
-    const qrModal = document.getElementById('qr-modal');
-    if (qrModal) qrModal.style.display = 'none';
-};
-
-if (btnGenerateQr) {
-    btnGenerateQr.onclick = window.generarQRMenu;
-}
-\nconst btnDownloadQr = document.getElementById(\'btn-download-qr\');\nif (btnDownloadQr) {\n    btnDownloadQr.onclick = function() {\n        const img = document.querySelector(\'#qr-code-container img\');\n        if (img && img.src) {\n            const link = document.createElement(\'a\');\n            link.download = \'menu-qr.png\';\n            link.href = img.src;\n            link.click();\n        }\n    };\n}

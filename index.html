@@ -1,20 +1,32 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Burger Rock Metal</title>
+    <title>Burger Rock Metal | Hamburguesas Brutales y Delivery en Punto Fijo</title>
+    <meta name="description" content="¿Hambre con actitud? Disfruta las hamburguesas más brutales de Burger Rock Metal en Punto Fijo. Pide online fácil y rápido con delivery directo a tu puerta. ¡Haz tu pedido aquí!">
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Poppins:ital,wght@0,400;0,600;0,800;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css?v=6">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" href="img/logo.png">
     
-    <!-- Meta Tags OpenGraph para WhatsApp y Redes Sociales -->
-    <meta property="og:title" content="¡Pide ahora en Burger Rock Metal!">
-    <meta property="og:description" content="Las mejores hamburguesas y perros calientes de la ciudad. Haz tu pedido rápido y fácil.">
-    <meta property="og:image" content="img/logo.png">
-    <meta property="og:url" content="https://midominio.com">
+    <!-- Meta Tags OpenGraph para WhatsApp, Facebook e Instagram -->
     <meta property="og:type" content="website">
+    <meta property="og:url" content="https://burger-rock-metal.vercel.app/">
+    <meta property="og:title" content="Burger Rock Metal 🍔🔥 | ¡Pide las Mejores Hamburguesas en Punto Fijo!">
+    <meta property="og:description" content="Sabor épico y volumen al máximo. Explora nuestro menú digital interactivo y arma tu pedido con delivery inmediato en Punto Fijo. ¡Toca aquí para ordenar!">
+    <meta property="og:image" content="https://burger-rock-metal.vercel.app/img/logo.png">
+    <meta property="og:image:secure_url" content="https://burger-rock-metal.vercel.app/img/logo.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="500">
+    <meta property="og:image:height" content="500">
+    <meta property="og:image:alt" content="Logo Burger Rock Metal">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Burger Rock Metal 🍔🔥 | Delivery en Punto Fijo">
+    <meta name="twitter:description" content="Sabor épico y volumen al máximo en Punto Fijo. Pide directo al WhatsApp aquí.">
+    <meta name="twitter:image" content="https://burger-rock-metal.vercel.app/img/logo.png">
     
     <!-- PWA -->
     <link rel="manifest" href="manifest.json">
@@ -50,6 +62,14 @@
                 ];
                 document.getElementById('dynamic-splash-text').textContent =
                     splashPhrases[Math.floor(Math.random() * splashPhrases.length)];
+
+                function dismissSplash() {
+                    const s = document.getElementById('splash-screen');
+                    if (s) {
+                        s.classList.add('hide-splash');
+                        document.body.style.overflow = '';
+                    }
+                }
             </script>
         </div>
     </div>
@@ -153,7 +173,7 @@
             <div class="agency-signature" style="margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column; align-items: center; gap: 10px;">
                 <p style="font-size: 0.75rem; letter-spacing: 2px; color: #a1a1aa; margin: 0;">⚡ TECNOLOGÍA Y DISEÑO POR</p>
                 <a href="https://growstudioweb.vercel.app" target="_blank" rel="noopener" class="grow-brand" style="text-decoration: none; display: flex; align-items: center; gap: 8px;">
-                    <img src="https://raw.githubusercontent.com/jackbikepf/repo/main/growisotipo.png" onerror="this.src='img/growisotipo.png'; this.onerror=null;" alt="Grow Studio" style="width: 25px; height: 25px; filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));">
+                    <img src="img/growisotipo.png" alt="Grow Studio" style="width: 25px; height: 25px; filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));">
                     <span style="font-size: 1.1rem; font-weight: 800; background: linear-gradient(90deg, #22d3ee, #f97316); -webkit-background-clip: text; color: transparent; letter-spacing: 1px;">GROW STUDIO</span>
                 </a>
             </div>
@@ -339,3 +359,4 @@
     </script>
 </body>
 </html>
+

@@ -1,0 +1,4 @@
+﻿User-agent: *
+Allow: /
+
+Sitemap: https://burger-rock-metal.vercel.app/sitemap.xml

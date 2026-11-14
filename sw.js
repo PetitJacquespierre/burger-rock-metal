@@ -1,4 +1,4 @@
-const CACHE_NAME = 'burger-rock-metal-v1';
+const CACHE_NAME = 'burger-rock-metal-v2';
 const urlsToCache = [
   './',
   './index.html',

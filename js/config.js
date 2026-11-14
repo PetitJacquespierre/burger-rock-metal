@@ -3,7 +3,7 @@ const clientConfig = {
     id: "neneburger_rock", // Identificador único para el Kill Switch
     businessName: "Burger Rock Metal",
     whatsapp: "584146992629",
-    urlApiBCV: "https://script.google.com/macros/s/AKfycbxdQlLO7lDOAvbhFqwVBs722T_i1KQ08z1gdf4NdqA6HvVcwGzRX4BZtHSd58piGL11/exec",
+    urlApiBCV: "https://admin-growstudio.vercel.app/api/bcv",
     colors: {
         primary: "#C61010",   // Rojo Rock Metal
         bgDark: "#09090b",    // Fondo principal (Negro Carbón)
